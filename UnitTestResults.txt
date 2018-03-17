@@ -1,3 +1,46 @@
+SimpleCacheException
+ [x] Default ttl invalid type null
+ [x] Default ttl invalid type boolean
+ [x] Default ttl invalid type array
+ [x] Default ttl invalid type object
+ [x] Cache key invalid type null
+ [x] Cache key invalid type boolean
+ [x] Cache key invalid type array
+ [x] Cache key invalid type object
+ [x] Set key pair ttl invalid type boolean
+ [x] Set key pair ttl invalid type array
+ [x] Set key pair ttl invalid type object
+ [x] Set multiple invalid type null
+ [x] Set multiple invalid type integer
+ [x] Set multiple invalid type float
+ [x] Set multiple invalid type boolean
+ [x] Set multiple invalid type string
+ [x] Set multiple invalid type key within not string
+ [x] Get multiple invalid type null
+ [x] Get multiple invalid type integer
+ [x] Get multiple invalid type float
+ [x] Get multiple invalid type boolean
+ [x] Get multiple invalid type string
+ [x] Get multiple invalid type key within not string
+ [x] Default ttl invalid argument negative integer
+ [x] Default ttl invalid argument negative date interval
+ [x] Set key pair invalid argument empty key
+ [x] Set key pair invalid argument key barely too long
+ [x] Set key pair invalid argument key contains left curly
+ [x] Set key pair invalid argument key contains right curly
+ [x] Set key pair invalid argument key contains left parenthesis
+ [x] Set key pair invalid argument key contains right parenthesis
+ [x] Set key pair invalid argument key contains forward slash
+ [x] Set key pair invalid argument key contains back slash
+ [x] Set key pair invalid argument key contains atmark
+ [x] Set key pair invalid argument key contains colon
+ [x] Set key pair ttl invalid argument negative integer
+ [x] Set key pair ttl invalid argument date string in past
+ [x] Set key pair ttl invalid argument date range in past
+ [x] Set key pair ttl invalid argument negative date interval
+ [x] Set key pair ttl invalid argument bogus string
+ [x] Set multiple invalid argument key in iterable has reserved character
+
 SimpleCacheSodium
  [x] Cache key obfuscation
  [x] Miss returns null
