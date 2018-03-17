@@ -27,7 +27,7 @@ final class SimpleCacheSodiumTest extends TestCase
      *
      * @var \AWonderPHP\SimpleCache\SimpleCache
      */
-    private $testNotStrict;
+    private $testSodiumNotStrict;
 
     /**
      * PHPUnit Setup, create an anonymous class instance of SimpleCache
