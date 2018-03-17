@@ -1,0 +1,11 @@
+SimpleCache
+ [x] Miss returns null
+ [x] Set and retrieve string
+ [x] Set and retrieve integer
+ [x] Set and retrieve float
+ [x] Set and retrieve boolean
+ [x] Set and retrieve array
+ [x] Set and retrieve object
+ [x] Set default seconds with integer
+ [x] Default seconds with date interval
+
