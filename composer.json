@@ -1,0 +1,30 @@
+{
+    "name": "awonderphp/simplecache",
+    "description": "An abstract class to be extended when implementation the PPR-16 SimpleCache Interface.",
+    "homepage": "https://github.com/AliceWonderMiscreations/SimpleCache",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alice Wonder",
+            "role": "Unemployed Maniac",
+            "email": "paypal@domblogger.net"
+        }
+    ],
+    "require": {
+        "php": "~7.1.0 || ~7.2.0",
+        "psr/simple-cache": "^1.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*",
+        "vimeo/psalm": "^0"
+    },
+    "suggest": {
+        "ext-sodium": "~2.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "AWonderPHP\\SimpleCache\\": "lib/"
+        }
+    }
+}
