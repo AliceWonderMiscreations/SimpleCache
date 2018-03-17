@@ -6,6 +6,7 @@
 >
     <projectFiles>
         <directory name="lib" />
+        <directory name="tests" />
     </projectFiles>
 
     <issueHandlers>
@@ -27,5 +28,13 @@
 
         <DocblockTypeContradiction errorLevel="info" />
         <RedundantConditionGivenDocblockType errorLevel="info" />
+
+	<!-- PHPUnit related noise -->
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="tests" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+
     </issueHandlers>
 </psalm>
