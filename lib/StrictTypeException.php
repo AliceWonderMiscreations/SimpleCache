@@ -18,10 +18,10 @@ namespace AWonderPHP\SimpleCache;
 class StrictTypeException extends \TypeError implements \Psr\SimpleCache\InvalidArgumentException
 {
     /**
-     * Exception message when constructor argument expected to be a string
+     * Exception message when constructor argument expected to be a string.
      *
-     * @param mixed  $var The argument passed to the constructor
-     * @param string $str The name of the argument that needed to be a string
+     * @param mixed  $var The argument passed to the constructor.
+     * @param string $str The name of the argument that needed to be a string.
      *
      * @return \TypeError
      */
@@ -33,13 +33,14 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             $str,
             $type
         ));
-    }
+    }//end cstrTypeError()
+
 
     /**
      * Exception message when the argument passed to setDefaultSeconds method
-     * is not an integer
+     * is not an integer.
      *
-     * @param mixed $var The argument that was passed to setDefaultSeconds
+     * @param mixed $var The argument that was passed to setDefaultSeconds.
      *
      * @return \TypeError
      */
@@ -50,7 +51,8 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             'The default cache TTL must be a \DateInterval or integer. You supplied type %s.',
             $type
         ));
-    }
+    }//end defaultTTL()
+
 
     /**
      * Exception message when the cache key parameter is not a string.
@@ -66,13 +68,14 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             'The cache key must be a string. You supplied type %s.',
             $type
         ));
-    }
+    }//end keyTypeError()
+
 
     /**
      * Exception message when the cache TTL parameter is not an integer or a
-     * string
+     * string.
      *
-     * @param mixed $var The argument used for the cache TTL
+     * @param mixed $var The argument used for the cache TTL.
      *
      * @return \TypeError
      */
@@ -83,12 +86,13 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             'The cache TTL argument must be a \DateInterval, integer, or a string. You supplied type %s.',
             $type
         ));
-    }
+    }//end ttlTypeError()
+
 
     /**
      * Exception message when an iterable type is required but was not passed.
      *
-     * @param mixed $var The argument passes to a method that requires an iterable argument
+     * @param mixed $var The argument passes to a method that requires an iterable argument.
      *
      * @return \TypeError
      */
@@ -99,12 +103,13 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             'Caching functions for multiple cache operations require an iterable argument. You supplied type %s.',
             $type
         ));
-    }
+    }//end typeNotIterable()
+
 
     /**
-     * Exception message when a key in an iterable key => value pair is not a string
+     * Exception message when a key in an iterable key => value pair is not a string.
      *
-     * @param mixed $var The key that is not a string
+     * @param mixed $var The key that is not a string.
      *
      * @return \TypeError
      */
@@ -115,7 +120,8 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             'The key in an iterable argument must be a string. You supplied type %s.',
             $type
         ));
-    }
+    }//end iterableKeyMustBeString()
+
 
     /**
      * Exception message when the supplied crypto key is not of the type string.
@@ -131,7 +137,7 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             'The cipher key MUST be a string. You supplied a %s.',
             $type
         ));
-    }
-}
+    }//end cryptoKeyNotString()
+}//end class
 
 ?>

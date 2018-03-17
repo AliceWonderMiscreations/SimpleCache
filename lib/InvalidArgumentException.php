@@ -27,7 +27,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
         return new self(sprintf(
             'The cache key you supplied was an empty string. It must contain at least one character.'
         ));
-    }
+    }//end emptyKey()
+
 
     /**
      * Exception message when the supplied cache key contains reserved characters
@@ -39,10 +40,12 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
     public static function invalidKeyCharacter(string $key)
     {
         return new self(sprintf(
-            'Cache keys may not contain any of the following characters: "  %s  " but your key "  %s  " does.', '{}()/\@:',
+            'Cache keys may not contain any of the following characters: "  %s  " but your key "  %s  " does.',
+            '{}()/\@:',
             $key
         ));
-    }
+    }//end invalidKeyCharacter()
+
 
     /**
      * Exception message when the supplied cache key exceeds 255 characters
@@ -58,7 +61,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'Cache keys may not be longer than 255 characters. Your key is %s characters long.',
             $length
         ));
-    }
+    }//end keyTooLong()
+
 
     /**
      * Exception message when a negative integer is supplies as the default TTL
@@ -73,7 +77,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The default TTL can not be a negative number. You supplied %s.',
             $seconds
         ));
-    }
+    }//end negativeDefaultTTL()
+
 
     /**
      * Exception message when a negative TTL is supplied when storing a key => value pair
@@ -88,7 +93,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The TTL can not be a negative number. You supplied %s.',
             $seconds
         ));
-    }
+    }//end negativeTTL()
+
 
     /**
      * Exception message when a date string contains a date in the past
@@ -103,7 +109,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The cache expiration can not be in the past. You supplied %s.',
             $str
         ));
-    }
+    }//end dateStringInPast()
+
     
     /**
      * Exception message when a \DateInterval is in the past
@@ -115,7 +122,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
         return new self(sprintf(
             'The cache expiration can not be in the past.'
         ));
-    }
+    }//end dateIntervalInPast()
+
 
     /**
      * Exception message when a date string can not be evaluated.
@@ -130,12 +138,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The cache expiration must be a non-zero TTL in seconds, seconds from UNIX epoch, a DateInterval, or an expiration date string. You supplied: %s',
             $str
         ));
-    }
+    }//end invalidTTL()
+
 
     /**
-     * Exception message when the supplied salt is too short
+     * Exception message when the supplied salt is too short.
      *
-     * @param string $str The provided salt that is too short
+     * @param string $str The provided salt that is too short.
      *
      * @return \InvalidArgumentException
      */
@@ -153,12 +162,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
                 $str
             ));
         }
-    }
+    }//end saltTooShort()
+
 
     /**
-     * Exception message when WebApp Prefix too short
+     * Exception message when WebApp Prefix too short.
      *
-     * @param string $str The provided WebApp Prefix
+     * @param string $str The provided WebApp Prefix.
      *
      * @return \InvalidArgumentException
      */
@@ -176,12 +186,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
                 $str
             ));
         }
-    }
+    }//end webappPrefixTooShort()
+
 
     /**
-     * The exception message when WebApp Prefix too long
+     * The exception message when WebApp Prefix too long.
      *
-     * @param string $str The provided WebApp Prefix
+     * @param string $str The provided WebApp Prefix.
      *
      * @return \InvalidArgumentException
      */
@@ -192,12 +203,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The WebApp Prefix must not have more than 32 characters. You supplied a %s character Prefix.',
             $length
         ));
-    }
+    }//end webappPrefixTooLong()
+
 
     /**
-     * The exception message when the WebApp Prefix is not alphanumeric
+     * The exception message when the WebApp Prefix is not alphanumeric.
      *
-     * @param string $str The provided WebApp Prefix
+     * @param string $str The provided WebApp Prefix.
      *
      * @return \InvalidArgumentException
      */
@@ -207,12 +219,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The WebApp Prefix can only contain A-Z letters and 0-9 numbers. You supplied: %s',
             $str
         ));
-    }
+    }//end webappPrefixNotAlphaNumeric()
+
 
     /**
-     * The exception message when the supplied encryption key is not 32 bytes
+     * The exception message when the supplied encryption key is not 32 bytes.
      *
-     * @param int $len The number of bytes in supplied encryption key
+     * @param int $len The number of bytes in supplied encryption key.
      *
      * @return \InvalidArgumentException
      */
@@ -223,10 +236,11 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'The secret key must be 32 bytes. You provided a %s byte key.',
             $bytes
         ));
-    }
+    }//end wrongByteSizeKey()
+
     
     /**
-     * The exception message when the supplied encryption key only has printable characters
+     * The exception message when the supplied encryption key only has printable characters.
      *
      * @return \InvalidArgumentException
      */
@@ -235,7 +249,8 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
         return new self(sprintf(
             'The secret key you supplied only contains printable characters.'
         ));
-    }
+    }//end secretOnlyPrintable()
+
 
     /**
      * The exception message when pre-encryption serialization has failed.
@@ -250,7 +265,7 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
             'Serialization failed with following message: %s',
             $str
         ));
-    }
-}
+    }//end serializeFailed()
+}//end class
 
 ?>

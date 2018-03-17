@@ -27,7 +27,8 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
         return new self(sprintf(
             'This class requires functions from the PECL libsodium extension.'
         ));
-    }
+    }//end noLibSodium()
+
 
     /**
      * Error message when specified configuration file is not found.
@@ -42,7 +43,8 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
             'The specified configuration file %s could not be found.',
             $file
         ));
-    }
+    }//end confNotFound()
+
 
     /**
      * Error message when specified configuration file is not readable.
@@ -57,7 +59,8 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
             'The specified configuration file %s could not be read.',
             $file
         ));
-    }
+    }//end confNotReadable()
+
 
     /**
      * Error message when specified configuration file does not contain valid JSON.
@@ -72,7 +75,8 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
             'The file %s did not contain valid JSON data.',
             $file
         ));
-    }
+    }//end confNotJson()
+
 
     /**
      * Error message when the class can not increment the nonce. This should never happen.
@@ -84,7 +88,7 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
         return new self(sprintf(
             'The class nonce failed to increment. This should not have happened, something is broken'
         ));
-    }
-}
+    }//end nonceIncrementError()
+}//end class
 
 ?>
