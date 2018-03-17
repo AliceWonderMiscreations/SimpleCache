@@ -3,8 +3,7 @@ php:
   - '7.1'
   - '7.2'
 env:
-  - PHPUNIT_VERSION="^7"
-  - PSRSIMPLE_VERSION="^1.0.1"
+  - PHPUNIT_VERSION="^7"; PSRSIMPLE_VERSION="^1.0.1"
 
 install:
   - composer require phpunit/phpunit:${PHPUNIT_VERSION}
