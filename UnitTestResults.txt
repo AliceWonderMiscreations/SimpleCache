@@ -66,6 +66,12 @@ SimpleCacheSodium
  [x] Get multiple key value pairs at once
  [x] Delete multiple key value pairs at once
 
+SimpleCacheStrictException
+ [x] Default ttl invalid type float
+ [x] Cache key invalid type integer
+ [x] Cache key invalid type float
+ [x] Set key pair ttl invalid type float
+
 SimpleCache
  [x] Cache key obfuscation
  [x] Miss returns null
