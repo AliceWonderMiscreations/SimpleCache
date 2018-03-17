@@ -1,3 +1,28 @@
+SimpleCacheSodium
+ [x] Cache key obfuscation
+ [x] Miss returns null
+ [x] Set and retrieve string
+ [x] Set and retrieve integer
+ [x] Set and retrieve float
+ [x] Set and retrieve boolean
+ [x] Set and retrieve array
+ [x] Set and retrieve object
+ [x] Delete a key
+ [x] Accept key length of 1
+ [x] Accept key length of 255
+ [x] Accept multibyte character key
+ [x] Set cache life as integer
+ [x] Set cache life as unix timestamp
+ [x] Set cache life as string with date range
+ [x] Set cache life as string with fixed date
+ [x] Set cache life as very very large integer
+ [x] Set cache life as date interval object
+ [x] Set default seconds with integer
+ [x] Default seconds with date interval
+ [x] Set multiple key value pairs at once
+ [x] Get multiple key value pairs at once
+ [x] Delete multiple key value pairs at once
+
 SimpleCache
  [x] Cache key obfuscation
  [x] Miss returns null
