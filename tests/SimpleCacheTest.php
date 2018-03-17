@@ -508,7 +508,8 @@ final class SimpleCacheTest extends TestCase
         $realKey = $this->testNotStrict->getRealKey($key);
         $realObject = $this->testNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($realTTL, $expected);
+        $race = abs($realTTL - $expected);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsDateIntervalObject()
 
     /**

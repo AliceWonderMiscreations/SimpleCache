@@ -178,18 +178,6 @@ final class SimpleCacheExceptionTest extends TestCase
     }//end testDefaultTtlInvalidTypeNull()
 
     /**
-     * Feed float data when setting the default TTL. Strict only test.
-     *
-     * @return void
-     */
-//    public function testDefaultTtlInvalidTypeFloat(): void
-//    {
-//        $ttl = 55.55;
-//        $this->expectException(\TypeError::class);
-//        $this->testNotStrict->setDefaultSeconds($ttl);
-//    }
-    
-    /**
      * Feed boolean data when setting the default TTL
      *
      * @return void
@@ -240,32 +228,6 @@ final class SimpleCacheExceptionTest extends TestCase
     }//end testCacheKeyInvalidTypeNull()
 
     /**
-     * Use integer as key. Strict test only
-     *
-     * @return void
-     */
-//    public function testCacheKeyInvalidTypeInteger(): void
-//    {
-//        $value = '99 bottles of beer on the wall';
-//        $key = 67;
-//        $this->expectException(\TypeError::class);
-//        $this->testNotStrict->set($key, $value);
-//    }
-
-    /**
-     * Use float as key. Strict test only
-     *
-     * @return void
-     */
-//    public function testCacheKeyInvalidTypeFloat(): void
-//    {
-//        $value = '99 bottles of beer on the wall';
-//        $key = 67.99412;
-//        $this->expectException(\TypeError::class);
-//        $this->testNotStrict->set($key, $value);
-//    }
-
-    /**
      * Use boolean as key
      *
      * @return void
@@ -304,18 +266,6 @@ final class SimpleCacheExceptionTest extends TestCase
         $this->expectException(\TypeError::class);
         $this->testNotStrict->set($key, $value);
     }//end testCacheKeyInvalidTypeObject()
-
-    /**
-     * Use float for key pair ttl. Strict test only
-     *
-     * @return void
-     */
-//    public function testSetKeyPairTtlInvalidTypeFloat(): void
-//    {
-//        $ttl = 76.234;
-//        $this->expectException(\TypeError::class);
-//        $this->testNotStrict->set('foo', 'bar', $ttl);
-//    }
 
     /**
      * Use boolean for key pair ttl

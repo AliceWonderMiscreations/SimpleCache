@@ -523,7 +523,8 @@ final class SimpleCacheSodiumTest extends TestCase
         $realKey = $this->testSodiumNotStrict->getRealKey($key);
         $realObject = $this->testSodiumNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($realTTL, $expected);
+        $race = abs($realTTL - $expected);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsDateIntervalObject()
 
     /**
