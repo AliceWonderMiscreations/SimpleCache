@@ -6,7 +6,7 @@ declare(strict_types=1);
  * methods that do not depend upon cache implementation but it can serve as a template
  * for implementation unit tests, just do not create the anonymous class.
  *
- * @package AWonderPHP\SimpleCache
+ * @package AWonderPHP/SimpleCache
  * @author  Alice Wonder <paypal@domblogger.net>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/AliceWonderMiscreations/SimpleCache

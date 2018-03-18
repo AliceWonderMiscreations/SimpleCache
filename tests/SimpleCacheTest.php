@@ -6,7 +6,7 @@ declare(strict_types=1);
  * methods that do not depend upon cache implementation but it can serve as a template
  * for implementation unit tests, just do not create the anonymous class.
  *
- * @package AWonderPHP\SimpleCache
+ * @package AWonderPHP/SimpleCache
  * @author  Alice Wonder <paypal@domblogger.net>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/AliceWonderMiscreations/SimpleCache
@@ -255,6 +255,22 @@ final class SimpleCacheTest extends TestCase
         $actual = $this->testNotStrict->get($key);
         $this->assertFalse($actual);
     }//end testSetAndRetrieveBoolean()
+    
+    /**
+     * Set and retrieve a null
+     *
+     * @return void
+     */
+    public function testSetAndRetrieveNull(): void
+    {
+        $key = "A nothing test";
+        $this->testNotStrict->set($key, null);
+        $a = $this->testNotStrict->get($key);
+        $this->assertNull($a);
+        $bool = $this->testNotStrict->has($key);
+        $this->assertTrue($bool);
+    }//end testSetAndRetrieveNull()
+
 
     /**
      * Set and retrieve an array.
@@ -433,7 +449,8 @@ final class SimpleCacheTest extends TestCase
         $realKey = $this->testNotStrict->getRealKey($key);
         $realObject = $this->testNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($rnd, $realTTL);
+        $race = abs($realTTL - $rnd);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsUnixTimestamp()
 
     /**
@@ -450,7 +467,8 @@ final class SimpleCacheTest extends TestCase
         $realKey = $this->testNotStrict->getRealKey($key);
         $realObject = $this->testNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($realTTL, 604800);
+        $race = abs($realTTL - 604800);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsStringWithDateRange()
 
     /**
@@ -490,7 +508,8 @@ final class SimpleCacheTest extends TestCase
         $realKey = $this->testNotStrict->getRealKey($key);
         $realObject = $this->testNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($realTTL, $ttl);
+        $race = abs($realTTL - $ttl);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsVeryVeryLargeInteger()
 
     /**
@@ -536,7 +555,8 @@ final class SimpleCacheTest extends TestCase
         $this->testNotStrict->setDefaultSeconds($interval);
         $expected = 273600;
         $actual = $this->testNotStrict->unitReturnDefaultSeconds();
-        $this->assertEquals($expected, $actual);
+        $race = abs($expected - $actual);
+        $this->assertLessThan(3, $race);
     }//end testDefaultSecondsWithDateInterval()
 
     /**

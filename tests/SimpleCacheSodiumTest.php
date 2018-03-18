@@ -8,7 +8,7 @@ declare(strict_types=1);
  *
  * This test only test with aesgcm but does test with chacha20poly1305
  *
- * @package AWonderPHP\SimpleCache
+ * @package AWonderPHP/SimpleCache
  * @author  Alice Wonder <paypal@domblogger.net>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/AliceWonderMiscreations/SimpleCache
@@ -448,7 +448,8 @@ final class SimpleCacheSodiumTest extends TestCase
         $realKey = $this->testSodiumNotStrict->getRealKey($key);
         $realObject = $this->testSodiumNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($rnd, $realTTL);
+        $race = abs($realTTL - $rnd);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsUnixTimestamp()
 
     /**
@@ -465,7 +466,8 @@ final class SimpleCacheSodiumTest extends TestCase
         $realKey = $this->testSodiumNotStrict->getRealKey($key);
         $realObject = $this->testSodiumNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($realTTL, 604800);
+        $race = abs($realTTL - 604800);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsStringWithDateRange()
 
     /**
@@ -505,7 +507,8 @@ final class SimpleCacheSodiumTest extends TestCase
         $realKey = $this->testSodiumNotStrict->getRealKey($key);
         $realObject = $this->testSodiumNotStrict->fakeCache[$realKey];
         $realTTL = $realObject->ttl;
-        $this->assertEquals($realTTL, $ttl);
+        $race = abs($realTTL - $ttl);
+        $this->assertLessThan(3, $race);
     }//end testSetCacheLifeAsVeryVeryLargeInteger()
 
     /**
@@ -551,7 +554,8 @@ final class SimpleCacheSodiumTest extends TestCase
         $this->testSodiumNotStrict->setDefaultSeconds($interval);
         $expected = 273600;
         $actual = $this->testSodiumNotStrict->unitReturnDefaultSeconds();
-        $this->assertEquals($expected, $actual);
+        $race = abs($expected - $actual);
+        $this->assertLessThan(3, $race);
     }//end testDefaultSecondsWithDateInterval()
 
     /**
