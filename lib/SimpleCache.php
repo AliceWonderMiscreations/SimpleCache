@@ -18,7 +18,7 @@ namespace AWonderPHP\SimpleCache;
 abstract class SimpleCache
 {
     /**
-     * When false, the class does not attempt to write/read from cache
+     * When false, the class does not attempt to write/read from cache.
      *
      * @var bool
      */
@@ -33,51 +33,51 @@ abstract class SimpleCache
     protected $strictType = false;
 
     /**
-     * The salt to use when generating internal key used with the cache engine
+     * The salt to use when generating internal key used with the cache engine.
      *
      * @var string
      */
     protected $salt = '6Dxypt3ePw2SM2zYzEVAFkDBQpxbk16z1';
 
     /**
-     * The prefix to use with the internal key used with the cache engine
+     * The prefix to use with the internal key used with the cache engine.
      *
      * @var string
      */
     protected $webappPrefix = 'DEFAULT_';
 
     /**
-     * The default TTL in seconds. 0 usually means as long as possible, but may vary by cache engine
+     * The default TTL in seconds. 0 usually means as long as possible, but may vary by cache engine.
      *
      * @var int
      */
     protected $defaultSeconds = 0;
-    
+
     /* these are needed only if using libsodium encryption */
-    
+
     /**
-     * The secret key to use
+     * The secret key to use.
      *
-     * @var string
+     * @var null|string
      */
     protected $cryptokey = null;
-    
+
     /**
-     * Constructor sets to true if CPU supports it
+     * The checkForSodium() method sets to true if CPU supports it.
      *
      * @var bool
      */
     protected $aesgcm = false;
-    
+
     /**
-     * ALWAYS gets increments before encryption
+     * ALWAYS gets increments before encryption.
      *
      * @var null|string
      */
     protected $nonce = null;
-    
+
     /* Protected Methods */
-    
+
     /**
      * Creates hash substring to use in internal cache key.
      *
@@ -91,7 +91,7 @@ abstract class SimpleCache
      */
     protected function weakHash($key): string
     {
-        if(is_null($this->cryptokey)) {
+        if (is_null($this->cryptokey)) {
             $key = $this->salt . $key;
             $key = hash('ripemd160', $key);
             // 16^16 should be enough of the hash to avoid collisions
@@ -101,8 +101,8 @@ abstract class SimpleCache
         $hash = sodium_crypto_generichash($key, $this->cryptokey, 16);
         $hexhash = sodium_bin2hex($hash);
         return substr($hexhash, 6, 20);
-    }
-    
+    }//end weakHash()
+
     /**
      * Checks to make sure sodium extension is available.
      *
@@ -118,9 +118,11 @@ abstract class SimpleCache
         if (! function_exists('sodium_memzero')) {
             throw InvalidSetupException::noLibSodium();
         }
+        if (sodium_crypto_aead_aes256gcm_is_available()) {
+            $this->aesgcm = true;
+        }
     }//end checkForSodium()
 
-    
     /**
      * Sets the cryptokey property used by the class to encrypt/decrypt.
      *
@@ -172,7 +174,6 @@ abstract class SimpleCache
         return;
     }//end setCryptoKey()
 
-    
     /**
      * Reads a JSON configuration and extracts info.
      *
@@ -197,7 +198,6 @@ abstract class SimpleCache
         return $config;
     }//end readConfigurationFile()
 
-
     /**
      * Serializes the value to be cached and encrypts it.
      *
@@ -213,6 +213,9 @@ abstract class SimpleCache
      */
     protected function encryptData($value)
     {
+        if (is_null($this->cryptokey)) {
+            throw InvalidSetupException::nullSecret();
+        }
         try {
             $serialized = serialize($value);
         } catch (\Error $e) {
@@ -255,7 +258,6 @@ abstract class SimpleCache
         return $obj;
     }//end encryptData()
 
-    
     /**
      * Returns the decrypted data retried from the APCu cache.
      *
@@ -267,6 +269,9 @@ abstract class SimpleCache
      */
     protected function decryptData($obj, $default = null)
     {
+        if (is_null($this->cryptokey)) {
+            throw InvalidSetupException::nullSecret();
+        }
         if (! isset($obj->nonce)) {
             return $default;
         }
@@ -311,7 +316,6 @@ abstract class SimpleCache
         return $value;
     }//end decryptData()
 
-
     /* Non sodium specific functions */
 
     /**
@@ -329,7 +333,6 @@ abstract class SimpleCache
             throw StrictTypeException::typeNotIterable($arg);
         }
     }//end checkIterable()
-
 
     /**
      * Takes user supplied key and creates internal cache key.
@@ -376,7 +379,6 @@ abstract class SimpleCache
         return $key;
     }//end adjustKey()
 
-
     /**
      * Sets the prefix (namespace) for the internal keys.
      *
@@ -408,7 +410,6 @@ abstract class SimpleCache
         $this->webappPrefix = $str . '_';
     }//end setWebAppPrefix()
 
-
     /**
      * Sets the salt to use when generating the internal keys.
      *
@@ -434,7 +435,6 @@ abstract class SimpleCache
         $this->salt = $str;
     }//end setHashSalt()
 
-
     /**
      * Converts a \DateInterval object to seconds.
      *
@@ -451,7 +451,6 @@ abstract class SimpleCache
         $diff = $ts - $now;
         return $diff;
     }//end dateIntervalToSeconds()
-
 
     /**
      * Generates Time To Live parameter to use with the cache engine.
@@ -521,7 +520,6 @@ abstract class SimpleCache
         throw InvalidArgumentException::invalidTTL($ttl);
     }//end ttlToSeconds()
 
-
     /**
      * Sets the default cache TTL in seconds.
      *
@@ -565,7 +563,6 @@ abstract class SimpleCache
         $this->defaultSeconds = $seconds;
     }//end setDefaultSeconds()
 
-
     /**
      * Fetches a value from the cache.
      *
@@ -586,7 +583,6 @@ abstract class SimpleCache
         return $default;
     }//end get()
 
-
     /**
      * Persists data in the cache, uniquely referenced by a key with an optional expiration TTL time.
      *
@@ -606,7 +602,6 @@ abstract class SimpleCache
         return false;
     }//end set()
 
-
     /**
      * Delete an item from the cache by its unique key.
      *
@@ -622,7 +617,6 @@ abstract class SimpleCache
         }
         return false;
     }//end delete()
-
 
     /**
      * Obtains multiple cache items by their unique keys.
@@ -653,7 +647,6 @@ abstract class SimpleCache
         }
         return $return;
     }//end getMultiple()
-
 
     /**
      * Persists a set of key => value pairs in the cache, with an optional TTL.
@@ -689,7 +682,6 @@ abstract class SimpleCache
         return true;
     }//end setMultiple()
 
-
     /**
      * Deletes multiple cache items in a single operation.
      *
@@ -719,7 +711,6 @@ abstract class SimpleCache
         return $return;
     }//end deleteMultiple()
 
-
     /**
      * Returns the actual internal key being used with the caching engine. Needed for unit testing.
      *
@@ -735,9 +726,8 @@ abstract class SimpleCache
         return $this->adjustKey($key);
     }//end getRealKey()
 
-    
     /* These need cache engine specific logic and are defined by the extending class */
-    
+
     /**
      * A wrapper for the actual fetch from the cache.
      *
@@ -767,7 +757,7 @@ abstract class SimpleCache
      * @return bool Returns True on success, False on failure
      */
     abstract protected function cacheDelete($realKey): bool;
-    
+
     /**
      * Wipes clean the entire cache's keys. This implementation only wipes for matching
      * webappPrefix (custom NON PSR-16 feature set during constructor).
@@ -782,7 +772,7 @@ abstract class SimpleCache
      * @return bool True on success and false on failure.
      */
     abstract public function clearAll(): bool;
-    
+
     /**
      * Determines whether an item is present in the cache.
      *

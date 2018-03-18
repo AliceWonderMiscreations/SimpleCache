@@ -83,12 +83,12 @@ The following properties exist in this class:
 
 * `protected $webappPrefix = 'DEFAULT_';`  
   Most cache engine implementations for PHP do not provide any mechanism for
-  namespacing the cache entries. When the above mentioned creates the
-  obfuscated `key` to use with the cache engine, this gets added as a prefix to
-  that hash, to provide namespace capabilities to this cache implementation.
-  Your class should allow setting of this property in the `__construct()`
-  function. This abstract class provides a concrete method your class can use
-  to allow a custom prefix to be set when the class is instantiated.
+  namespacing the cache entries. When the class creates the obfuscated `key`
+  to use with the cache engine, this gets added as a prefix to that hash, to
+  provide namespace capabilities to this cache implementation. Your class
+  should allow setting of this property in the `__construct()` function. This
+  abstract class provides a concrete method your class can use to allow a
+  custom prefix to be set when the class is instantiated.
 
 * `protected $defaultSeconds = 0;`  
   The default number of seconds for a cached `key => value` pair to be seen as
@@ -96,7 +96,7 @@ The following properties exist in this class:
   not expire the `key => value` pair. This class provides a public concrete
   method that web applications can use to change the value of this property.
 
-* `protected $cryptokey = '';`  
+* `protected $cryptokey = null;`  
   This property only matters if you want the libsodium encryption features. It
   defined the secret to use when encrypting and decrypting the `value` part of
   the `key => value` pair. If used it should be set by your class
@@ -108,9 +108,9 @@ The following properties exist in this class:
   This property only matters if you want the libsodium encryption features. On
   processors that support
   [AES-NI](https://en.wikipedia.org/wiki/AES_instruction_set), the AES-GCM
-  cipher is the fastest cipher to use. This should be detected in your class
-  `__construct()` function. This abstract class provides a concrete method your
-  class can use to set this property when the class is instantiated.
+  cipher is the fastest cipher to use. This is detected and set by the
+  `checkForSodium()` function which should be called by your `__construct()`
+  function if you are implementing the encryption features.
 
 * `protected $nonce = null;`  
   Your class should not touch this property. In cryptography, a nonce does not
@@ -142,7 +142,9 @@ The following protected methods are provided in this class:
   stored in cache, the PHP libsodium wrapper functions need to be available.
   This method should be called from your `__construct()` function to verify
   that the PHP environment your class is running in has them. An exception is
-  thrown when `libsodium` is not available for use.
+  thrown when `libsodium` is not available for use. This function also detects
+  whether or not your CPU suppose AES-NI and set the `$aesgcm` class property
+  to `true` if it does.
 
 * `protected function setCryptoKey($cryptokey): void`  
   When your class encrypts the `value` portion of a `key => value` pair to be
@@ -164,7 +166,7 @@ The following protected methods are provided in this class:
 * `protected function encryptData($value)`  
   When your class encrypts the `value` portion of a `key => value` pair to be
   stored in cache, this is the method that does the encryption. It outputs a
-  `\stdClass` property that has two properties: The `nonce` used and the
+  `\stdClass` object that has two properties: The `nonce` used and the
   encrypted data. This is the only method that should ever alter the class
   `$nonce` property. The `nonce` is also recorded in the Associated Data part
   of the `AEAD` encryption, but is set as a property of the output in the event
@@ -173,10 +175,10 @@ The following protected methods are provided in this class:
 
 * `protected function decryptData($obj, $default = null)`  
   When your class encrypts the `value` portion of a `key => value` pair to be
-  stored in cache, the encrypted data needed to be decrypted when retrieved
+  stored in cache, the encrypted data needs to be decrypted when retrieved
   from the cache. This method does the decryption. When it is successful, it
   returns the decrypted data. If it can not decrypt the data, it returns the
-  `$default` value (usually `null`).
+  `$default`.
 
 * `protected function checkIterable($arg): void`  
   Some public methods required by a PSR-16 implementing class require that a
@@ -186,7 +188,7 @@ The following protected methods are provided in this class:
 * `protected function adjustKey($key): string`  
   This method takes the `key` provided by the web application and turns it
   into the namespaced obfuscated `key` that is used with the cache engine. It
-  returns a string, the new `key` that is used with the cache engine.
+  returns a string, the obfuscated `key` that is used with the cache engine.
 
 * `protected function setWebAppPrefix($str): void`  
   When the web application specifies a custom namespace it wants to use for its
@@ -232,7 +234,7 @@ The following public methods are provided in this class:
   Part of PSR-16. The `$key` is the `key` as the web application sees it. It
   gets converted to the internal obfuscated `key` for the actual query to the
   cache engine. The function returns the associated `value` in the
-  `key => value` pair or return `$default` on a cache miss.
+  `key => value` pair or returns `$default` on a cache miss.
 
 * `public function set($key, $value, $ttl = null): bool`  
   Part of PSR-16. The `$key` is the `key` as the web application sees it. It
@@ -241,7 +243,7 @@ The following public methods are provided in this class:
   should be considered valid to the cache engine. It can be an integer number
   of seconds, a `\DateInterval` object, a UNIX timestamp indicating when it
   should expire, or any string that can be turned into a UNIX timestamp using
-  the PHP `strtotime()` command.
+  the PHP `strtotime()` function.
 
 * `public function delete($key): bool`  
   Part of PSR-16. The `$key` is the `key` as the web application sees it. It
@@ -260,8 +262,8 @@ The following public methods are provided in this class:
   parameter is how long the `key => value` pairs should be considered valid to
   the cache engine. It can be an integer number of seconds, a `\DateInterval`
   object, a UNIX timestamp indicating when they should expire, or any string
-  that can be turned into a UNIX timestamp using the PHP `strtotime()` command.
-  Returns True on success, False on failure.
+  that can be turned into a UNIX timestamp using the PHP `strtotime()`
+  function. Returns True on success, False on failure.
 
 * `public function deleteMultiple($keys): bool`  
   Part of PSR-16. The `$keys` parameter needs to be an iterable type containing
@@ -282,7 +284,7 @@ require functions specific to your chosen cache engine.
 
 * `abstract protected function cacheFetch($realKey, $default);`  
   This function needs to take the obfuscated `key` as an argument and use it
-  query your chosen cache-engine for the `value` associated with that `key`.
+  query your chosen cache engine for the `value` associated with that `key`.
   It should return the `value` on success and `$default` on a miss. If you
   use the cryptography features, your implementation of this method __must__
   call the protected `decryptData($obj, $default)` method to decrypt the
@@ -308,7 +310,7 @@ require functions specific to your chosen cache engine.
   acceptable to PSR-16 to just delete everything, though it is better in my
   opinion to only delete the entries in the same namespace.
 
-* `abstract public function clearAll(): bool;`
+* `abstract public function clearAll(): bool;`  
   Not part of PSR-16 but it should do what most PSR-16 implementations do with
   `clear()` - it should completely nuke the cache, not giving a hoot what web
   applications created which entries. I personally never use it, but thought it
@@ -328,14 +330,16 @@ available to the PHP environment that instantiated it. When that is the case
 and you are __NOT__ using the cryptography features, you need to make sure
 to set the class `$enabled` property to `true`. If you are using the encryption
 features, then you should call the `checkForSodium()` protected method to make
-sure the libsodium wrapper functions are available. That function will set the
-`$enabled` property to `true` for you if they are.
+sure the libsodium wrapper functions are available.
 
 If using the cryptography capabilities, the first argument to your constructor
 should be required and should either be the secret key to use for the
 cryptography or the path to a JSON configuration file that contains the secret.
 The protected function `setCryptoKey($cryptokey)` should be called to verify
 that the secret is valid, it will also set the class `$cryptokey` for you.
+Only call `setCryptoKey($cryptokey)` after you have verified the cache engine
+is available for use, it will set the `$enabled` property to `true` and there
+is no point in calling this function if the cache engine is not available.
 
 Your constructor _should_ have a parameter that allows the web application to
 set its own namespace. When that parameter is not null, your constructor should
@@ -381,7 +385,6 @@ magic methods defined to avoid accidental leakage of the secret:
         unset($result['nonce']);
         return $result;
     }//end __debugInfo()
-
 
     /**
      * Zeros the cryptokey property on class destruction.

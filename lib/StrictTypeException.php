@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Invalid Type Exception
+ * Invalid Type Exception.
  *
  * @package AWonderPHP/SimpleCache
  * @author  Alice Wonder <paypal@domblogger.net>
@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace AWonderPHP\SimpleCache;
 
 /**
- * Throws a \TypeError exception
+ * Throws a \TypeError exception.
  */
 class StrictTypeException extends \TypeError implements \Psr\SimpleCache\InvalidArgumentException
 {
@@ -35,7 +35,6 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
         ));
     }//end cstrTypeError()
 
-
     /**
      * Exception message when the argument passed to setDefaultSeconds method
      * is not an integer.
@@ -53,7 +52,6 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
         ));
     }//end defaultTTL()
 
-
     /**
      * Exception message when the cache key parameter is not a string.
      *
@@ -69,7 +67,6 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             $type
         ));
     }//end keyTypeError()
-
 
     /**
      * Exception message when the cache TTL parameter is not an integer or a
@@ -88,7 +85,6 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
         ));
     }//end ttlTypeError()
 
-
     /**
      * Exception message when an iterable type is required but was not passed.
      *
@@ -105,7 +101,6 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
         ));
     }//end typeNotIterable()
 
-
     /**
      * Exception message when a key in an iterable key => value pair is not a string.
      *
@@ -121,7 +116,6 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             $type
         ));
     }//end iterableKeyMustBeString()
-
 
     /**
      * Exception message when the supplied crypto key is not of the type string.

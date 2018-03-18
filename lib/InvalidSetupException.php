@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Invalid Setup Exception
+ * Invalid Setup Exception.
  *
  * @package AWonderPHP/SimpleCache
  * @author  Alice Wonder <paypal@domblogger.net>
@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace AWonderPHP\SimpleCache;
 
 /**
- * Throws a \ErrorException exception
+ * Throws a \ErrorException exception.
  */
 class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\CacheException
 {
@@ -28,7 +28,6 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
             'This class requires functions from the PECL libsodium extension.'
         ));
     }//end noLibSodium()
-
 
     /**
      * Error message when specified configuration file is not found.
@@ -45,7 +44,6 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
         ));
     }//end confNotFound()
 
-
     /**
      * Error message when specified configuration file is not readable.
      *
@@ -60,7 +58,6 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
             $file
         ));
     }//end confNotReadable()
-
 
     /**
      * Error message when specified configuration file does not contain valid JSON.
@@ -77,6 +74,17 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
         ));
     }//end confNotJson()
 
+    /**
+     * Error message when the encryption secret is null. This should never happen.
+     *
+     * @return \ErrorException
+     */
+    public static function nullSecret()
+    {
+        return new self(sprintf(
+            'The encryption secret is null. This should not have happened, something is broken'
+        ));
+    }//end nullSecret()
 
     /**
      * Error message when the class can not increment the nonce. This should never happen.
