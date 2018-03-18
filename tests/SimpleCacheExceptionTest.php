@@ -168,6 +168,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Feed null data when setting the default TTL
      *
+     * @psalm-suppress NullArgument
+     *
      * @return void
      */
     public function testDefaultTtlInvalidTypeNull(): void
@@ -179,6 +181,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Feed boolean data when setting the default TTL
+     *
+     * @psalm-suppress PossiblyFalseArgument
      *
      * @return void
      */
@@ -192,6 +196,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Feed array data when setting the default TTL
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testDefaultTtlInvalidTypeArray(): void
@@ -203,6 +209,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Feed stdClass object data when setting the default TTL
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */
@@ -217,6 +225,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Use null as key
      *
+     * @psalm-suppress NullArgument
+     *
      * @return void
      */
     public function testCacheKeyInvalidTypeNull(): void
@@ -229,6 +239,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Use boolean as key
+     *
+     * @psalm-suppress InvalidScalarArgument
      *
      * @return void
      */
@@ -243,6 +255,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Use array as key
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testCacheKeyInvalidTypeArray(): void
@@ -255,6 +269,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Use object as key
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */
@@ -270,6 +286,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Use boolean for key pair ttl
      *
+     * @psalm-suppress InvalidScalarArgument
+     *
      * @return void
      */
     public function testSetKeyPairTtlInvalidTypeBoolean(): void
@@ -282,6 +300,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Use array for key pair ttl
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testSetKeyPairTtlInvalidTypeArray(): void
@@ -293,6 +313,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Use object for key pair ttl
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */
@@ -307,6 +329,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Set multiple not iterable null.
      *
+     * @psalm-suppress NullArgument
+     *
      * @return void
      */
     public function testSetMultipleInvalidTypeNull(): void
@@ -318,6 +342,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Set multiple not iterable integer.
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */
@@ -331,6 +357,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Set multiple not iterable float.
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testSetMultipleInvalidTypeFloat(): void
@@ -343,6 +371,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Set multiple not iterable boolean.
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testSetMultipleInvalidTypeBoolean(): void
@@ -354,6 +384,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Set multiple not iterable string.
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */
@@ -393,6 +425,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Get multiple not iterable null.
      *
+     * @psalm-suppress NullArgument
+     *
      * @return void
      */
     public function testGetMultipleInvalidTypeNull(): void
@@ -404,6 +438,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Get multiple not iterable integer.
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */
@@ -417,6 +453,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Get multiple not iterable float.
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testGetMultipleInvalidTypeFloat(): void
@@ -429,6 +467,8 @@ final class SimpleCacheExceptionTest extends TestCase
     /**
      * Get multiple not iterable boolean.
      *
+     * @psalm-suppress InvalidArgument
+     *
      * @return void
      */
     public function testGetMultipleInvalidTypeBoolean(): void
@@ -440,6 +480,8 @@ final class SimpleCacheExceptionTest extends TestCase
 
     /**
      * Get multiple not iterable string.
+     *
+     * @psalm-suppress InvalidArgument
      *
      * @return void
      */

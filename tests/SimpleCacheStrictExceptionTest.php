@@ -175,6 +175,8 @@ final class SimpleCacheStrictExceptionTest extends TestCase
     /**
      * Feed float data when setting the default TTL. Strict only test.
      *
+     * @psalm-suppress InvalidScalarArgument
+     *
      * @return void
      */
     public function testDefaultTtlInvalidTypeFloat(): void
@@ -186,6 +188,8 @@ final class SimpleCacheStrictExceptionTest extends TestCase
 
     /**
      * Use integer as key. Strict test only
+     *
+     * @psalm-suppress InvalidScalarArgument
      *
      * @return void
      */
@@ -200,6 +204,8 @@ final class SimpleCacheStrictExceptionTest extends TestCase
     /**
      * Use float as key. Strict test only
      *
+     * @psalm-suppress InvalidScalarArgument
+     *
      * @return void
      */
     public function testCacheKeyInvalidTypeFloat(): void
@@ -212,6 +218,8 @@ final class SimpleCacheStrictExceptionTest extends TestCase
 
     /**
      * Use float for key pair ttl. Strict test only
+     *
+     * @psalm-suppress InvalidScalarArgument
      *
      * @return void
      */
