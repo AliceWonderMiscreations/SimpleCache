@@ -79,6 +79,7 @@ SimpleCache
  [x] Set and retrieve integer
  [x] Set and retrieve float
  [x] Set and retrieve boolean
+ [x] Set and retrieve null
  [x] Set and retrieve array
  [x] Set and retrieve object
  [x] Delete a key
