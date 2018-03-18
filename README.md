@@ -9,6 +9,9 @@ classes implementing [PSR-16](https://www.php-fig.org/psr/psr-16/) can extend.
 For a working class that extends this abstract class, use
 [SimpleCacheAPCu](https://github.com/AliceWonderMiscreations/SimpleCacheAPCu).
 
+Developers wishing to write a class that extends this class, please see the
+[API.md](API.md) file.
+
 
 About PHP-FIG and PSR-16
 ------------------------
