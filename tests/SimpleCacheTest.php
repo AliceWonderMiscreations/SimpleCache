@@ -50,21 +50,6 @@ final class SimpleCacheTest extends TestCase
             public $fakeCache = array();
 
             /**
-             * Provide a concrete weakHash function
-             *
-             * @param string $key A key.
-             *
-             * @return string
-             */
-            protected function weakHash($key): string
-            {
-                $key = $this->salt . $key;
-                $key = hash('ripemd160', $key);
-                // 16^16 should be enough of the hash to avoid collisions
-                return substr($key, 17, 16);
-            }//end weakHash()
-
-            /**
              * Provide a concrete cacheFetch function
              *
              * @param string $realKey The real key.

@@ -17,7 +17,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test class for SimpleCache no strict no encryption
+ * Test class for SimpleCache no strict but with encryption
  */
 // @codingStandardsIgnoreLine
 final class SimpleCacheSodiumTest extends TestCase
@@ -50,21 +50,6 @@ final class SimpleCacheSodiumTest extends TestCase
              * @var array
              */
             public $fakeCache = array();
-
-            /**
-             * Provide a concrete weakHash function
-             *
-             * @param string $key A key.
-             *
-             * @return string
-             */
-            protected function weakHash($key): string
-            {
-                $key = $this->salt . $key;
-                $key = hash('ripemd160', $key);
-                // 16^16 should be enough of the hash to avoid collisions
-                return substr($key, 17, 16);
-            }//end weakHash()
 
             /**
              * Provide a concrete cacheFetch function

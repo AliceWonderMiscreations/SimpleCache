@@ -60,7 +60,7 @@ abstract class SimpleCache
      *
      * @var string
      */
-    protected $cryptokey = '';
+    protected $cryptokey = null;
     
     /**
      * Constructor sets to true if CPU supports it
@@ -77,6 +77,31 @@ abstract class SimpleCache
     protected $nonce = null;
     
     /* Protected Methods */
+    
+    /**
+     * Creates hash substring to use in internal cache key.
+     *
+     * This class obfuscates the user supplied cache keys by using a substring
+     * of the hex representation of a hash of that key. This function creates
+     * the hex representation of the hash and grabs a substring.
+     *
+     * @param string $key The user defined key to hash.
+     *
+     * @return string
+     */
+    protected function weakHash($key): string
+    {
+        if(is_null($this->cryptokey)) {
+            $key = $this->salt . $key;
+            $key = hash('ripemd160', $key);
+            // 16^16 should be enough of the hash to avoid collisions
+            return substr($key, 17, 16);
+        }
+        $key = $key . $this->salt;
+        $hash = sodium_crypto_generichash($key, $this->cryptokey, 16);
+        $hexhash = sodium_bin2hex($hash);
+        return substr($hexhash, 6, 20);
+    }
     
     /**
      * Checks to make sure sodium extension is available.
@@ -711,20 +736,7 @@ abstract class SimpleCache
     }//end getRealKey()
 
     
-    /* These need logic defined by the extending class */
-    
-    /**
-     * Creates hash substring to use in internal cache key.
-     *
-     * This class obfuscates the user supplied cache keys by using a substring
-     * of the hex representation of a hash of that key. This function creates
-     * the hex representation of the hash and grabs a substring.
-     *
-     * @param string $key The user defined key to hash.
-     *
-     * @return string
-     */
-    abstract protected function weakHash($key): string;
+    /* These need cache engine specific logic and are defined by the extending class */
     
     /**
      * A wrapper for the actual fetch from the cache.
