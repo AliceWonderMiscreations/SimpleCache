@@ -4,7 +4,7 @@ CHANGELOG
 Devel (not released)
 --------------------
 
-* Added exception for Redis
+* Added exceptions for Redis
 
 1.0.0 (Sun Mar 18 2018) Androgynous
 -----------------------------------
