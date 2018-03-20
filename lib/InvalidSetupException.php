@@ -97,6 +97,30 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
             'The class nonce failed to increment. This should not have happened, something is broken'
         ));
     }//end nonceIncrementError()
+
+    /**
+     * Error message when the Redis object is null. This should never happen.
+     *
+     * @return \ErrorException
+     */
+    public static function nullRedis()
+    {
+        return new self(sprintf(
+            'The Redis object is null. This should not have happened, something is broken'
+        ));
+    }//end nullRedis()
+
+    /**
+     * Error message when the Redis ping does not respond with pong.
+     *
+     * @return \ErrorException
+     */
+    public static function pingNoPongRedis()
+    {
+        return new self(sprintf(
+            'I was not able to ping the Redis server.'
+        ));
+    }//end pingNoPongRedis()
 }//end class
 
 ?>

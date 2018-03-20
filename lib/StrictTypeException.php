@@ -132,6 +132,22 @@ class StrictTypeException extends \TypeError implements \Psr\SimpleCache\Invalid
             $type
         ));
     }//end cryptoKeyNotString()
+    
+    /**
+     * Error message when redis object is expected but not provided.
+     *
+     * @param mixed $var The supplied redis connector.
+     *
+     * @return \TypeError
+     */
+    public static function redisConnectorExpected($var)
+    {
+        $type = gettype($var);
+        return new self(sprintf(
+            'Expecting a redis connection object. You supplied %s.'.
+            $type
+        ));
+    }//end redisConnectorExpected()
 }//end class
 
 ?>
