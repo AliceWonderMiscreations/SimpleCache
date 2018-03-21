@@ -4,6 +4,7 @@ CHANGELOG
 Devel (not released)
 --------------------
 
+* Added new exception for APCu
 * Added exceptions for Redis
 * When using -1 as TTL for set() and the default TTL is 6000 seconds or larger
 it will take a random number of seconds between 0 and 15% of the default TTL

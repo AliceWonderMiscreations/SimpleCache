@@ -115,6 +115,18 @@ class InvalidSetupException extends \ErrorException implements \Psr\SimpleCache\
      *
      * @return \ErrorException
      */
+    public static function apcuNotAvailable()
+    {
+        return new self(sprintf(
+            'APCu is either not installed or not enabled.'
+        ));
+    }//end apcuNotAvailable()
+
+    /**
+     * Error message when the Redis ping does not respond with pong.
+     *
+     * @return \ErrorException
+     */
     public static function pingNoPongRedis()
     {
         return new self(sprintf(
