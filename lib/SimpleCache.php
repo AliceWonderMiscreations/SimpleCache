@@ -500,7 +500,22 @@ abstract class SimpleCache
         }
         $now = time();
         if (is_int($ttl)) {
-            $seconds = $ttl;
+            // allow -1 to adjust the cache time +/- up to 15% of default
+            if ($ttl === -1) {
+                $seconds = $this->defaultSeconds;
+                $partial = intval(round(0.15 * $seconds));
+                if ($partial >= 900) {
+                    $adjust = random_int(0, $partial);
+                    $direction = random_int(0, 1);
+                    if ($direction === 0) {
+                        $seconds = $seconds + $adjust;
+                    } else {
+                        $seconds = $seconds - $adjust;
+                    }
+                }
+            } else {
+                $seconds = $ttl;
+            }
             if ($seconds > $now) {
                 return ($seconds - $now);
             }

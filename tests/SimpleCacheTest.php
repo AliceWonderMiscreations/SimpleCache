@@ -545,6 +545,74 @@ final class SimpleCacheTest extends TestCase
     }//end testDefaultSecondsWithDateInterval()
 
     /**
+     * Set default TTL and ask for randomizing of it
+     *
+     * @return void
+     */
+    public function testCacheWarmStaggerTtl(): void
+    {
+        $this->testNotStrict->setDefaultSeconds(43200);
+        for ($i=0; $i<250; $i++) {
+            $key = 'TestKey' . $i;
+            $val = 'TestVal' . $i;
+            $this->testNotStrict->set($key, $val, -1);
+        }
+        $below = 0;
+        $above = 0;
+        $exact = 0;
+        foreach ($this->testNotStrict->fakeCache as $key => $value) {
+            $ttl = $value->ttl;
+            if ($ttl === 43200) {
+                $exact++;
+            }
+            if ($ttl < 43200) {
+                $below++;
+            }
+            if ($ttl > 43200) {
+                $above++;
+            }
+        }
+        $this->assertLessThan($below, 60);
+        $this->assertLessThan($above, 60);
+        $total = $below + $above + $exact;
+        $this->assertEquals(250, $total);
+    }//end testCacheWarmStaggerTtl()
+
+    /**
+     * Set default too small TTL and ask for randomizing of it
+     * Should not actually stagger
+     *
+     * @return void
+     */
+    public function testCacheWarmStaggerSmallDefaultTtl(): void
+    {
+        $this->testNotStrict->setDefaultSeconds(432);
+        for ($i=0; $i<250; $i++) {
+            $key = 'TestKey' . $i;
+            $val = 'TestVal' . $i;
+            $this->testNotStrict->set($key, $val, -1);
+        }
+        $below = 0;
+        $above = 0;
+        $exact = 0;
+        foreach ($this->testNotStrict->fakeCache as $key => $value) {
+            $ttl = $value->ttl;
+            if ($ttl === 432) {
+                $exact++;
+            }
+            if ($ttl < 432) {
+                $below++;
+            }
+            if ($ttl > 432) {
+                $above++;
+            }
+        }
+        $this->assertEquals(0, $below);
+        $this->assertEquals(0, $above);
+        $this->assertEquals(250, $exact);
+    }//end testCacheWarmStaggerSmallDefaultTtl()
+
+    /**
      * Set multiple key => value pairs
      *
      * @return void
