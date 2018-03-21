@@ -274,6 +274,18 @@ The following public methods are provided in this class:
   This function is _not_ part of PSR-16. It takes the `$key` parameter supplied
   to it and returns what the obfuscated key used with the cache engine would
   look like. It is useful for debugging.
+  
+### TTL Notes with `set()` and `setMultiple()`
+
+When given a value of `0` the extending class should use the maximum TTL the
+cache engine will cache for.
+
+When given a value of `-1` this abstract will take 15% of the currently defined
+default TTL and if that is >= 900 seconds, it takes a random number between 0
+and that number and either ads it or subtracts if from the default TTL to use
+with the key being set. This is done to allow automated expiration staggering
+when many records are set at once, such as with cache warming, so they do not
+all expire at the same time.
 
 
 Abstract Class Abstract Methods
@@ -467,11 +479,3 @@ donation. I am currently not doing very well, see the file
 
 ---------------------------------------------
 __EOF__
-
-
-
-
-
-
-
-
