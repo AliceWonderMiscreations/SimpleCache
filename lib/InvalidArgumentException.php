@@ -127,8 +127,10 @@ class InvalidArgumentException extends \InvalidArgumentException implements \Psr
      */
     public static function invalidTTL(string $str)
     {
+        $errorString = 'The cache expiration must be a non-zero TTL in seconds, seconds from UNIX epoch, ';
+        $errorString .= 'a DateInterval, or an expiration date string. You supplied: %s';
         return new self(sprintf(
-            'The cache expiration must be a non-zero TTL in seconds, seconds from UNIX epoch, a DateInterval, or an expiration date string. You supplied: %s',
+            $errorString,
             $str
         ));
     }//end invalidTTL()
