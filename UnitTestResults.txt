@@ -62,6 +62,8 @@ SimpleCacheSodium
  [x] Set cache life as date interval object
  [x] Set default seconds with integer
  [x] Default seconds with date interval
+ [x] Cache warm stagger ttl
+ [x] Cache warm stagger small default ttl
  [x] Set multiple key value pairs at once
  [x] Get multiple key value pairs at once
  [x] Delete multiple key value pairs at once
@@ -94,6 +96,8 @@ SimpleCache
  [x] Set cache life as date interval object
  [x] Set default seconds with integer
  [x] Default seconds with date interval
+ [x] Cache warm stagger ttl
+ [x] Cache warm stagger small default ttl
  [x] Set multiple key value pairs at once
  [x] Get multiple key value pairs at once
  [x] Delete multiple key value pairs at once

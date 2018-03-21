@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Devel (not released)
---------------------
+1.0.1 (Wed Mar 21 2018) Star Star
+---------------------------------
 
 * Added new exception for APCu
 * Added exceptions for Redis
